@@ -15,7 +15,7 @@
 1. Python 3.7+
 2. Зависимости:
    ```bash
-   pip install requests beautifulsoup4 fake-useragent
+   pip install requests beautifulsoup4 fake-useragent lxml
 
 ## Использование
 ```
