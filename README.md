@@ -29,6 +29,10 @@ ns = NameStatistics(language='ru')  # 'ru', 'it', 'de', 'es', и тд
 
 # Получение статистики по имени
 ```
+from name_statistics import NameStatistics
+
+ns = NameStatistics(language='ru', parser='lxml')
+
 stats = ns.get_forename_stats('maksim')
 print(stats) # {'name': 'maksim', 'count-in-world': 123456, 'most-prevalent-country': 'Russia'}
 
