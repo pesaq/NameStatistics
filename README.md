@@ -39,3 +39,11 @@ print(stats) # {'name': 'maksim', 'count-in-world': 123456, 'most-prevalent-coun
 description = ns.get_forename_description('maksim')
 print(description)
 ```
+
+# Использование кириллицы
+```
+ns = NameStatistics(auto_slug_cyrillic=True) # автоматическое преобразование кириллицы в slug
+
+search_result = ns.get_forename_description('Максим') # входные данные на кириллице
+print(search_result)
+```
