@@ -3,6 +3,7 @@ class NameStatisticsError(Exception):
     pass
 
 class IncorrectSearchName(Exception):
+    """Возникает при передаче некорректного имени"""
     def __init__(self, name_slug: str):
         super().__init__(f'Name "{name_slug}" not found or invalid')
         self.name_slug = name_slug

@@ -18,7 +18,7 @@ class NameStatistics:
         language: str = 'en',
         parser: str = 'lxml',
         auto_slug_cyrillic: bool = False
-    ):
+    ) -> None:
         """
         :param language: Язык, на котором будет прилагаться описание (для функций get_forename_description, get_surname_description)
         :param parser: Парсер для BeautifulSoup ('lxml', 'html.parser', ...). По умолчанию 'lxml'.
@@ -27,8 +27,8 @@ class NameStatistics:
         self.language: str = language
         self.parser: str = parser
         self.auto_slug_cyrillic: bool = auto_slug_cyrillic
-        self.base_url: str = 'https://forebears.io'
-        self.headers: Dict[str, str] = {
+        self._base_url: str = 'https://forebears.io'
+        self._headers: Dict[str, str] = {
             'User-Agent': get_random_user_agent()
         }
         self.session = requests.Session()
@@ -36,15 +36,20 @@ class NameStatistics:
     def _make_request(
         self,
         url: str
-    ):
+    ) -> str:
+        """Возвращает содержимое страницы с информацией по имени"""
         try:
-            response = self.session.get(url, headers=self.headers)
+            response = self.session.get(url, headers=self._headers)
             response.raise_for_status()
             return response.text
         except requests.exceptions.RequestException as e:
             raise RequestFailedError(f'Request failed: {str(e)}')
 
-    def _validate_name_slug(self, name_slug: str) -> bool:
+    def _validate_name_slug(
+        self,
+        name_slug: str
+    ) -> bool:
+        """Проверка name_slug на корректность"""
         if not name_slug.isalpha():
             return False
         return True
@@ -62,6 +67,7 @@ class NameStatistics:
         self,
         name_slug: str
     ) -> str:
+        """Возвращает url адрес на страницу с информацией по имени"""
 
         if not self._validate_name_slug(name_slug):
             raise ValueError(
@@ -73,8 +79,8 @@ class NameStatistics:
             name_slug = slugify_rus_to_eng(name_slug)
 
         if self.language != 'en':
-            return f'{self.base_url}/{self.language}/forenames/{name_slug.lower()}'
-        return f'{self.base_url}/forenames/{name_slug.lower()}'
+            return f'{self._base_url}/{self.language}/forenames/{name_slug.lower()}'
+        return f'{self._base_url}/forenames/{name_slug.lower()}'
     
     def get_forename_description(
         self,
