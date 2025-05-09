@@ -34,10 +34,22 @@ from name_statistics import NameStatistics
 ns = NameStatistics(language='ru', parser='lxml')
 
 stats = ns.get_forename_stats('maksim')
-print(stats) # {'name': 'maksim', 'count-in-world': 123456, 'most-prevalent-country': 'Russia'}
+print(stats)
 
 description = ns.get_forename_description('maksim')
 print(description)
+
+# output:
+# {
+    'name': 'maksim',
+    'count-in-world': 2155370,
+    'most-prevalent-country': 'России',
+    'most-сommon-name-in-the-world': 279
+  }
+#
+# Наиболее распространенная в: России
+# Приблизительно 2,155,370 людей носят это имя
+# 279 среди самых популярных имён в мире
 ```
 
 # Использование кириллицы
